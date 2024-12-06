@@ -28,7 +28,7 @@ alerts = pd.read_csv(args.data_path + '/alert_accounts.csv')
 repeats = 5
 
 K = 2
-len_threshold = 7  # set larger than len_threshold will be ignored
+len_threshold = 7  # sets larger than len_threshold will be ignored
 seed = 42
 
 # MinHash LSH config
