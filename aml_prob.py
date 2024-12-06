@@ -27,13 +27,13 @@ alerts = pd.read_csv(args.data_path + '/alert_accounts.csv')
 # AML config
 repeats = 5
 
-K = 2 # BFS找K跳的set
-len_threshold = 7  # set size大于这个阈值才会被minhash
+K = 2
+len_threshold = 7  # set larger than len_threshold will be ignored
 seed = 42
 
 # MinHash LSH config
 bands = args.bands
-rows = args.rows   # [3, 4, 5, 6, 10]
+rows = args.rows  
 num_hash_functions = bands * rows
 
 # Bloom Filter config
@@ -46,7 +46,7 @@ transactions_list = transactions[['orig_acct', 'bene_acct']].to_numpy()
 
 account_bank = accounts[['bank_id']].to_numpy()
 bank_a = accounts.loc[np.where(account_bank == 'bank_a')[0], 'acct_id'].tolist()
-bank_b = accounts.loc[np.where(account_bank == 'bank_b')[0], 'acct_id'].tolist()  # bank a 和 bank b 所有账户的id list
+bank_b = accounts.loc[np.where(account_bank == 'bank_b')[0], 'acct_id'].tolist()  
 
 ground_truth = [1 if i in alerts_list else 0 for i in range(len(accounts))]
 # print(ground_truth)
@@ -61,11 +61,11 @@ for acct in accounts['acct_id'].to_numpy():
     src2dst[acct] = []
     dst2src[acct] = []
 
-for src, dst in transactions_list:  # 正向和反向的临接表
+for src, dst in transactions_list: 
     src2dst[src].append(dst)
     dst2src[dst].append(src)
 
-acct_bank_dict = dict(accounts[['acct_id','bank_id']].to_numpy())  # 所有账户id对所属银行的dict
+acct_bank_dict = dict(accounts[['acct_id','bank_id']].to_numpy())  
 
 
 results = []

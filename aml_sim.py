@@ -21,13 +21,13 @@ alerts = pd.read_csv(args.data_path + '/alert_accounts.csv')
 
 # AML config
 repeats = 5
-K = 2 # BFS找K跳的set
-len_threshold = 6 # set size大于这个阈值才会被minhash
+K = 2 
+len_threshold = 6 # sets larger than len_threshold will be ignored
 seed = 42
 
 # MinHash LSH config
 bands = args.bands
-rows = args.rows   # [3, 4, 5, 6, 10]
+rows = args.rows  
 num_hash_functions = bands * rows
 
 # Bloom Filter config
@@ -41,7 +41,7 @@ transactions_list = transactions[['orig_acct', 'bene_acct']].to_numpy()
 
 account_bank = accounts[['bank_id']].to_numpy()
 bank_a = accounts.loc[np.where(account_bank == 'bank_a')[0], 'acct_id'].tolist()
-bank_b = accounts.loc[np.where(account_bank == 'bank_b')[0], 'acct_id'].tolist()  # bank a 和 bank b 所有账户的id list
+bank_b = accounts.loc[np.where(account_bank == 'bank_b')[0], 'acct_id'].tolist()  
 ground_truth = [1 if i in alerts_list else 0 for i in range(len(bank_a)+len(bank_b))]
 
 src2dst = {}
@@ -195,6 +195,7 @@ for repeat in range(repeats):
 
         if match_num / bands > roc_list_b_backward[idx]:
             roc_list_b_backward[idx] = match_num / bands
+            
     print(f"compare A&B: {time.time() - time0}")
 
 
