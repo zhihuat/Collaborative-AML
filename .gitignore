@@ -1,0 +1,23 @@
+__pycache__
+.vscode
+zxh copy.ipynb
+zxh.ipynb
+Multi-GNN
+results
+check_node联邦0115.csv
+bf_minhash_similarity_6.8.ipynb
+bf_minhash_method3.ipynb
+bf_minhash_6.8.ipynb
+AML_plot.ipynb
+method2.py
+data_process.ipynb
+evaluation_on_alipay.ipynb
+method3_nobf.py
+minhash_6.8.ipynb
+plot.ipynb
+repeat_bar.png
+run.sh
+similarity_threshold.ipynb
+data
+data_process/data_process4gnn_amlsim.py
+data_process/data_process4gnn_amlworld.py
