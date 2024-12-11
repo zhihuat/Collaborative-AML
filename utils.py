@@ -32,33 +32,33 @@ def calculate_edge(a, b, reverse):
 #                 queue.append([w, hop - 1])   # 否则继续在client内进行hop-1跳的传递
 #     return edge_set, nodes_set
 
-def AMLBFS(graph, acct_bank_dict, s, k, reverse):
-    bank_s = acct_bank_dict[s]  # Get the bank associated with the starting node
-    queue = [[s, k]]  # Initialize the queue with the starting node and remaining hops
-    nodes_set = []  # Set to keep track of encountered nodes
-    edge_set = []  # List to record cross-bank edges
+# def AMLBFS(graph, acct_bank_dict, s, k, reverse):
+#     bank_s = acct_bank_dict[s]  # Get the bank associated with the starting node
+#     queue = [[s, k]]  # Initialize the queue with the starting node and remaining hops
+#     nodes_set = []  # Set to keep track of encountered nodes
+#     edge_set = []  # List to record cross-bank edges
 
-    while queue:
-        vertex, hop = queue.pop(0)  # Dequeue a node and its remaining hops
-        if vertex in nodes_set:
-            continue
-        if hop <= 0:
-            continue
+#     while queue:
+#         vertex, hop = queue.pop(0)  # Dequeue a node and its remaining hops
+#         if vertex in nodes_set:
+#             continue
+#         if hop <= 0:
+#             continue
         
-        nodes_set.append(vertex) 
-        neighbors = graph.get(vertex, [])
+#         nodes_set.append(vertex) 
+#         neighbors = graph.get(vertex, [])
         
-        for neighbor in neighbors:
-            if acct_bank_dict[neighbor] != bank_s:  # Cross-bank condition
-                # Record the cross-bank transaction
-                edge_set.append(calculate_edge(vertex, neighbor, reverse))
-                nodes_set.append(neighbor)  # Add neighbor to the set
-            elif neighbor in nodes_set:
-                continue
-            elif neighbor not in nodes_set:
-                queue.append([neighbor, hop - 1])  # Continue BFS with remaining hops
+#         for neighbor in neighbors:
+#             if acct_bank_dict[neighbor] != bank_s:  # Cross-bank condition
+#                 # Record the cross-bank transaction
+#                 edge_set.append(calculate_edge(vertex, neighbor, reverse))
+#                 nodes_set.append(neighbor)  # Add neighbor to the set
+#             elif neighbor in nodes_set:
+#                 continue
+#             elif neighbor not in nodes_set:
+#                 queue.append([neighbor, hop - 1])  # Continue BFS with remaining hops
 
-    return list(set(edge_set)), list(set(nodes_set))
+#     return list(set(edge_set)), list(set(nodes_set))
 
 
 

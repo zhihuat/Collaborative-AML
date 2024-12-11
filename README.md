@@ -10,7 +10,7 @@ pip install pandas numpy tqdm scikit-learn
 
 ## Dataset
 #### AMLSim
-The AMLSim dataset is generated with [AMLSim](https://github.com/IBM/AMLSim/tree/master) repostitory. We will open-souce the dataset with Google Drive.
+The AMLSim dataset is generated with [AMLSim](https://github.com/IBM/AMLSim/tree/master) repostitory. The datasets used in our experiments can be accessed from [Google Drive](https://drive.google.com/drive/folders/16_Y_OAO9mTFzyHt7aBRRupZbdQBVXzkJ?usp=sharing).
 
 #### AMLWorld
 The AMLWorld dataset can be found on [Kaggle](https://www.kaggle.com/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/data). To use this data with the provided training scripts, you first need to perform a pre-processing step for the downloaded transaction files (e.g. `HI-Small_Trans.csv`, and `HI-Small_Patterns.txt`):

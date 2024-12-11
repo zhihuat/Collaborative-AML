@@ -21,3 +21,4 @@ similarity_threshold.ipynb
 data
 data_process/data_process4gnn_amlsim.py
 data_process/data_process4gnn_amlworld.py
+auprc.py
