@@ -29,13 +29,13 @@ The output consists of three files, `accounts.csv`, `transactions.csv` and `aler
 To run the experiments with `Prob-CSGM`, you can run, e.g.:
 
 ```
-python aml_prob.py --data_path ./HI-Small_Trans --rows 7 --bands 100
+python aml_prob.py --data_path /path/to/100K-balance --rows 5 --bands 100
 
 ```
 To run the experiments with `Sim-CSGM`, you can run, e.g.:
 
 ```
-python aml_sim.py --data_path ./HI-Small_Trans --rows 7 --bands 100
+python aml_sim.py --data_path /path/to/100K-balance --rows 2 --bands 100
 
 ```
 
