@@ -35,8 +35,17 @@ os.makedirs(save_dir, exist_ok=True)
 # AML config
 repeats = args.repeats
 K = 2
-len_threshold = 5  # sets smaller than len_threshold will be ignored
 seed = 42
+
+if "100K" in args.data_path:
+    len_threshold = 5 # sets smaller than len_threshold will be ignored
+elif "HI-Small_Trans" in args.data_path:
+    len_threshold = 8
+elif "Small_Trans" in args.data_path:
+    len_threshold = 9
+else:
+    KeyError("set 'len_threshold' for your dataset.")
+
 
 # MinHash LSH config
 bands = args.bands
@@ -44,8 +53,7 @@ rows = args.rows
 num_hash_functions = bands * rows
 
 # Bloom Filter config
-bf_size = args.bf_size # 3000000   # amlworld
-# bf_size = 500000 # amlsim
+bf_size = args.bf_size
 bf_hash_num = 7
 
 
