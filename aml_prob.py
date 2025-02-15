@@ -15,7 +15,7 @@ import os
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, default='/path/to/100K-balance', help="dataset name")
+parser.add_argument("--data_path", type=str, default='./dataset/100K-balance', help="dataset name")
 parser.add_argument("--rows", type=int, default=5, help="#rows")
 parser.add_argument("--bands", type=int, default=100, help="#bands")
 parser.add_argument("--repeats", type=int, default=1, help="repeat experiments")
