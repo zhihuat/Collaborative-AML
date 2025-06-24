@@ -48,6 +48,21 @@ python aml_sim.py --data_path /path/to/100K-balance --rows 2 --bands 100
 
 </div>
 
+
+## Citation
+If you find this work useful in your research, please cite:
+```
+@inproceedings{tian2025towards,
+  title={Towards Collaborative Anti-Money Laundering Among Financial Institutions},
+  author={Tian, Zhihua and Ding, Yuan, and Qu, Wenjie and Yu, Xiang and Gong, Enchao and Jiaheng Zhang and Liu, Jian and Ren, Kui},
+  booktitle={ArXiv},
+  year={2025},
+  html = {https://arxiv.org/abs/2502.19952},
+}
+
+```
+
+
 ## Licence
 Apache License
 Version 2.0, January 2004
