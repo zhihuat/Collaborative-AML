@@ -13,14 +13,13 @@ import os
 
 from utils import generate_hash_functions, AMLBFS, lsh, minhash_signature, BloomFilter
 
-
 parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, default='/path/to/100K-balance', help="dataset name")
+parser.add_argument("--data_path", type=str, default='./dataset/LI-Small_Trans', help="dataset name")
 parser.add_argument("--rows", type=int, default=2, help="rows")
 parser.add_argument("--bands", type=int, default=100, help="#bands")
-parser.add_argument("--repeats", type=int, default=5, help="repeat experiments")
+parser.add_argument("--repeats", type=int, default=1, help="repeat experiments")
 parser.add_argument("--output_dir", type=str, default='results/sim', help="output dir")
-parser.add_argument("--bf_size", type=int, default=500000, help="size of bloom filter")
+parser.add_argument("--bf_size", type=int, default=3000000, help="size of bloom filter")
 
 
 args = parser.parse_args()
@@ -36,8 +35,17 @@ os.makedirs(save_dir, exist_ok=True)
 # AML config
 repeats = args.repeats
 K = 2 # Depth of BFS
-len_threshold = 5 # sets larger than len_threshold will be ignored
 seed = 42
+
+if "100K" in args.data_path:
+    len_threshold = 5 # sets smaller than len_threshold will be ignored
+elif "HI-Small_Trans" in args.data_path:
+    len_threshold = 8 
+elif "LI-Small_Trans" in args.data_path:
+    len_threshold = 9
+else:
+    KeyError("set 'len_threshold' for your dataset.")
+
 
 # MinHash LSH config
 bands = args.bands
@@ -45,8 +53,7 @@ rows = args.rows
 num_hash_functions = bands * rows
 
 # Bloom Filter config
-# bf_size = 3000000 # amlworld
-bf_size = args.bf_size  # 500000  # amlsim
+bf_size = args.bf_size 
 bf_hash_num = 7
 
 ############
@@ -56,7 +63,7 @@ transactions_list = transactions[['orig_acct', 'bene_acct']].to_numpy()
 account_bank = accounts[['bank_id']].to_numpy()
 bank_a = accounts.loc[np.where(account_bank == 'bank_a')[0], 'acct_id'].tolist()
 bank_b = accounts.loc[np.where(account_bank == 'bank_b')[0], 'acct_id'].tolist()  
-ground_truth = [1 if i in alerts_list else 0 for i in range(len(bank_a)+len(bank_b))]
+ground_truth = np.array([1 if i in alerts_list else 0 for i in range(len(bank_a)+len(bank_b))])
 
 src2dst = {}
 dst2src = {}
@@ -89,7 +96,6 @@ for repeat in range(repeats):
     a_backward_account = {}
     
     for index, node_id in tqdm(enumerate(bank_a), desc="Set discover for band A"):
-        # print(index)
         forward_set, forward_set_account = AMLBFS(src2dst, acct_bank_dict, node_id, K, reverse=False)
         backward_set, backward_set_account = AMLBFS(dst2src, acct_bank_dict, node_id, K, reverse=True)
         
@@ -253,16 +259,14 @@ for repeat in range(repeats):
                 if len(union_set) > 0:
                     roc_list[union_set] = 1
         
-
-        infer_list = roc_list.tolist()
         
         results.append({
             'iteration': repeat,  # current iteration number
             'threshold': threshold,
-            'acc': accuracy_score(ground_truth, infer_list),
-            'precision': precision_score(ground_truth, infer_list),
-            'recall': recall_score(ground_truth, infer_list),
-            'f1': f1_score(ground_truth, infer_list),
+            'acc': accuracy_score(ground_truth, roc_list),
+            'precision': precision_score(ground_truth, roc_list),
+            'recall': recall_score(ground_truth, roc_list),
+            'f1': f1_score(ground_truth, roc_list),
             'auc': roc_auc_score(ground_truth, roc_list)
         })
         
